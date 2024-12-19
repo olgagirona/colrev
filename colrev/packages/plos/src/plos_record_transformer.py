@@ -20,11 +20,9 @@ TAG_RE = re.compile(r"<[a-z/][^<>]{0,12}>")
 
 
 def _get_year(*, item: dict) -> str:
-    year = "-1"
-
-    if "publication_date" in "item":
-        date = ([item]["publication_date"]).split("-")[0]
-
+    if "publication_date" in item:
+        return (item["publication_date"]).split("-")[0]
+       
     
     else:
         return ""
@@ -141,6 +139,8 @@ def _remove_fields(*, record_dict: dict) -> dict:
         del record_dict[Fields.ABSTRACT]
 
     return record_dict
+
+
 def _item_to_record(*, item: dict) -> dict:
     #Equivalent to "title" in Crossref
     if "title_display" in item:
@@ -269,5 +269,4 @@ def json_to_record(*, item: dict) -> colrev.record.record_prep.PrepRecord:
             f"RecordNotParseableExcception: {exc}"
         ) from exc
     
-
     return colrev.record.record_prep.PrepRecord(record_dict)
