@@ -9,7 +9,7 @@ from pathlib import Path
 import requests
 import zope.interface
 from pydantic import Field
-
+import inquirer
 import colrev.env.language_service
 import colrev.exceptions as colrev_exceptions
 import colrev.loader.load_utils
@@ -105,7 +105,11 @@ class PlosSearchSource:
                 search_types=self.search_types, params=params_dict
             )
 
+
         return search_type
+
+
+
 
     @classmethod
     def add_endpoint(
@@ -128,11 +132,12 @@ class PlosSearchSource:
                     + "search?"
                     + "q="
                     + search_source.search_parameters.pop("query", "").replace(" ", "+")
+                    + "&fl=id,abstract,author_display,title_display,journal,publication_date,volume,issue"
                 )
+
                 search_source.search_parameters["version"] = "0.1.0"
 
                 operation.add_source_and_search(search_source)
-
                 return search_source
             else:
                 if Fields.URL in params:

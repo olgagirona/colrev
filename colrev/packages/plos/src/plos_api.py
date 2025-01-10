@@ -505,7 +505,11 @@ class PlosAPI:
         "Get records from PLOS based on a id query"
 
         try:
-            endpoint = Endpoint(self._api_url + "search?q=id:" + doi, email=self.email)
+            endpoint = Endpoint(
+                self._api_url + "search?q=id:" + doi + "&fl=id,abstract,author_display,title_display,journal,publication_date,volume,issue,article_type",
+                email=self.email
+            )
+
             plos_query_return = next(iter(endpoint))
             if plos_query_return is None:
                 raise colrev_exceptions.RecordNotFoundInPrepSourceException(
