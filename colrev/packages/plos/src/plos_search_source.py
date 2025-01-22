@@ -283,7 +283,6 @@ class PlosSearchSource:
         if source.search_type == SearchType.API:
             self._validate_api_params()
 
-        self.review_manager.logger.debug(f"SearchSource {source.filename} validated")
 
     def _validate_api_params(self):
         self.search_source

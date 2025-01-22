@@ -122,7 +122,7 @@ def _item_to_record(*, item: dict) -> dict:
     item["journal"] = item.get("journal", "")
     assert isinstance(item["journal"], str)
 
-    item[Fields.ENTRYTYPE] = "unknown"
+    item[Fields.ENTRYTYPE] = "misc"
     if item.get("article_type", "") == "Research Article":
         item[Fields.ENTRYTYPE] = "article"
 
